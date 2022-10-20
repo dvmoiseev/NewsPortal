@@ -3,7 +3,7 @@ import re
 
 register = template.Library()
 
-dictionary = ['Сколково', 'Госуслугах,', 'Чубайс', 'Собянин']
+dictionary = ['Сколково', 'Госуслуг', 'Чубайс', 'Собянин']
 
 @register.filter()
 def censor(value):
