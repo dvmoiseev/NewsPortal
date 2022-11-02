@@ -16,7 +16,7 @@
         <td>
             <p style="font-weight: bold">{{ post.title }}</p>
             <p>{{ post.text|truncatewords:20 }}</p>
-            <p><a href="/news/{{ post.id }}">Читать далее</a>&nbsp;&nbsp;&nbsp;<a href="/news/{{ post.id }}/edit">Редактировать</a>&nbsp;&nbsp;&nbsp;<a href="/news/{{ post.id }}/delete">Удалить</a></p>
+            <p><a href="/news/{{ post.id }}">Читать далее</a>&nbsp;&nbsp;&nbsp;{% if perms.news.change_post %}<a href="/news/{{ post.id }}/edit">Редактировать</a>{% endif %}&nbsp;&nbsp;&nbsp;{% if perms.news.delete_post %}<a href="/news/{{ post.id }}/delete">Удалить</a>{% endif %}</p>
         </td>
     </tr>
     {% endfor %}
