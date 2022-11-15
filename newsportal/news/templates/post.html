@@ -8,9 +8,20 @@
 {% load custom_filters %}
 
 <h1>{{ post.title }}</h1>
+
+{% for category in post.categories.all %}
+    {{ category.name }}<br>
+{% endfor %}
+
 <p>{{ post.create_time|date:"d.m.Y" }}</p>
 <p>{{ post.text|censor }}<p>
 
-<p><a href="/news/{{ post.id }}/edit">Редактировать</a>&nbsp;&nbsp;&nbsp;<a href="/news/{{ post.id }}/delete">Удалить</a></p>
+{% if user.is_authenticated %}
+    {% for category in post.categories.all %}
+        <p><a href="/categories/{{ category.id }}/subscribe">Подписаться на новости категории {{ category.name }}</a></p>
+    {% endfor %}
+{% endif %}
+
+<p>{% if perms.news.change_post %}<a href="/news/{{ post.id }}/edit">Редактировать</a>{% endif %}&nbsp;&nbsp;&nbsp;{% if perms.news.delete_post %}<a href="/news/{{ post.id }}/delete">Удалить</a>{% endif %}</p>
 
 {% endblock content %}

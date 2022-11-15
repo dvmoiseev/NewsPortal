@@ -1,7 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy
-from .models import Post
+from django.shortcuts import render
+from .models import Post, Category
 from .forms import PostForm
 from .filters import PostFilter
 
@@ -62,3 +63,11 @@ class PostSearch(ListView):
         context = super().get_context_data(**kwargs)
         context['filterset'] = self.filterset
         return context
+
+
+def subscribe(request, pk):
+    user = request.user
+    category = Category.objects.get(id=pk)
+    category.subscribers.add(user)
+    message = 'Вы подписаны на новости выбранной категории'
+    return render(request, 'subscr.html', {'category': category, 'message': message})

@@ -16,6 +16,9 @@ class Author(models.Model):
     user_link = models.OneToOneField(User, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
 
+    def __str__(self):
+        return f"{self.user_link} (рейтинг: {self.rating})"
+
     def update_rating(self):
         # суммарный рейтинг всех статей автора
         postRat = self.post_set.aggregate(postRating=Sum('rating'))
@@ -31,7 +34,10 @@ class Author(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
+    subscribers = models.ManyToManyField(User, related_name = 'categories') #подписчики в данной категории
 
+    def __str__(self):
+        return f"{self.name}"
 
 class Post(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
@@ -41,6 +47,9 @@ class Post(models.Model):
     title = models.TextField(default='Заголовок статьи')
     text = models.TextField(default='Текст статьи')
     rating = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.create_time} - {self.title} ({self.author.user_link})"
 
     def like(self):
         self.rating += 1
@@ -73,6 +82,9 @@ class Comment(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)
     text = models.TextField(default='Комментарий')
     rating = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.create_time} - {self.text} ({self.user})"
 
     def like(self):
         self.rating += 1

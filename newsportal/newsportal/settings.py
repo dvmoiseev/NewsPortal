@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.flatpages',
-    'news',
+    'news.apps.NewsConfig',
     'accounts',
     'django_filters',
     'allauth',
@@ -94,6 +94,18 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD  = 'email'
 
 WSGI_APPLICATION = 'newsportal.wsgi.application'
 
@@ -153,3 +165,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
+
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'newsportal22@mail.ru'
+
+#Пароль в открытом доступе, господи, до чего я дошёл, позорище. Одна радость: это всё-таки не пароль от почты. На почте mail есть специальные пароли для внешних устройств, так вот это он и есть. Я разберусь как использовать внешние файлы env для хранения паролей, честное слово.
+
+EMAIL_HOST_PASSWORD = '9CYbfsJr1NfXC8GUrnNe'
+EMAIL_USE_SSL = True
+
+EMAIL_FROM = "newsportal22@mail.ru"
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
