@@ -13,9 +13,11 @@ def send_email_newpost(sender, instance, **kwargs):
             for subscriber in category.subscribers.all():
                 if subscriber.email != '':
                     emails.append(subscriber.email)
+        link = 'http://127.0.0.1:8000/news/'+str(instance.pk)
+        message = 'Ознакомьтесь с новой статьёй по ссылке ' + link
         send_mail(
             'Новое сообщение на портале новостей!',
-            instance.title,
+            message,
             EMAIL_HOST_USER,
             emails,
             fail_silently=True,
