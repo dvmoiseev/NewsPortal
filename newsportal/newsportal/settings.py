@@ -177,3 +177,9 @@ EMAIL_USE_SSL = True
 
 EMAIL_FROM = "newsportal22@mail.ru"
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+CELERY_BROKER_URL = 'redis-14601.c299.asia-northeast1-1.gce.cloud.redislabs.com:14601'
+CELERY_RESULT_BACKEND = 'redis-14601.c299.asia-northeast1-1.gce.cloud.redislabs.com:14601'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'

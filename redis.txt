@@ -1,0 +1,16 @@
+redisnewsportal
+
+redis-14601.c299.asia-northeast1-1.gce.cloud.redislabs.com:14601
+
+default
+t4E2umKRgW4Nd4hglbxDRnmWllTWtTr7
+
+redis-cli -u redis://default:t4E2umKRgW4Nd4hglbxDRnmWllTWtTr7@redis-14601.c299.asia-northeast1-1.gce.cloud.redislabs.com:14601
+
+red = redis.Redis(
+    host = 'redis-14601.c299.asia-northeast1-1.gce.cloud.redislabs.com',
+    port = 14601,
+    password = 't4E2umKRgW4Nd4hglbxDRnmWllTWtTr7'
+)
+
+celery -A proj_name worker -l INFO
